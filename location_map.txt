@@ -1,0 +1,47 @@
+001		Alba
+002		Arad
+003		Arges
+004		Bacau
+005		Bihor
+006		Bistrita Nasaud
+007		Botosani
+008		Brasov
+009		Braila
+010		Buzau
+011		Caras Severin
+012		Cluj
+013		Constanta
+014		Covasna
+015		Dimbovita
+016		Dolj
+017		Galati
+018		Gorj
+019		Harghita
+020		Hunedoara
+021		Ialomita
+022		Iasi
+023		Ilfov
+024		Maramures
+025		Mehedinti
+026		Mures
+027		Neamt
+028		Olt
+029		Prahova
+030		Satu Mare
+031		Salaj
+032		Sibiu
+033		Suceava
+034		Teleorman
+035		Timis
+036		Tulcea
+037		Vaslui
+038		Valcea
+039		Vrancea
+041		Bucharest Sector 1
+042		Bucharest Sector 2
+043		Bucharest Sector 3
+044		Bucharest Sector 4
+045		Bucharest Sector 5
+046		Bucharest Sector 6
+051		Calarasi
+052		Giurgiu

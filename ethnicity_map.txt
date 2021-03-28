@@ -1,0 +1,39 @@
+10		Romanian
+11		Hungarian
+12		Gypsy
+13		German
+14		Ukrainian
+15		Serbian
+16		Turk
+17		Tartar
+18		Slovakian
+19		Jewish
+20		Russian
+21		Lipovan
+22		Bulgarian
+23		Czech
+24		Croat
+25		Greek
+26		Pole
+27		Armenian
+29		Saxon
+30		Swabian
+31		Macedoromanian
+32		Aromanian
+33		Szekler
+35		Carasoveni
+36		Italian
+37		Chinese
+38		Albanian
+40		Macedonian
+41		Csango
+42		Rudari
+43		Moldovan
+44		Slovenian
+45		Ruthenian
+50		Other ethnic group from European Union
+60		Other ethnic group from Europe
+70		Other ethnic group from other continents
+80		Other, not specified
+98		Response suppressed
+99		Unknown

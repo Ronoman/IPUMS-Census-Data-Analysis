@@ -1,0 +1,617 @@
+0000		NIU (not in universe)
+1000		No religion
+1001		Atheist
+1002		Agnostic
+1003		Without religion
+2000		Buddhist
+3000		Hindu
+4000		Jewish
+5000		Muslim
+5005		Ahmadis
+5006		Sunni
+6000		Christian
+6001		Catholic (Roman or unspecified)
+6002		Orthodox
+6003		Protestant
+6004		Evangelical protestant
+6005		Pentecostal
+6006		Adventist / Seventh-day adventist
+6007		Anglican
+6008		Assembly of God
+6009		Baptist
+6010		Church of the Nazarene
+6011		Congregational
+6012		Dutch Reformed
+6013		Episcopalian
+6014		Jehovah's Witnesses
+6015		Latter Day Saints (Mormon)
+6016		Lutheran
+6017		Mennonite
+6018		Methodist
+6019		New Apostolic
+6020		Presbyterian
+6021		Zion Christian
+6022		Moravian
+6090		Other Christian, historical
+6100		Other Christian, Armenia
+6101		Armenia apostolic
+6102		Nestorian
+6103		Molokai
+6104		Other Christian, Austria
+6105		Old Catholic
+6106		Protestant, Augsburg confession
+6107		Protestant, Westminster confession
+6108		Protestant, Helvetic confession
+6109		Greek Oriental
+6110		Armenian Apostolic
+6111		Other Protestant
+6112		Christian Community for renewal
+6113		Christian Community, not specified
+6114		Other Christian, Benin
+6115		Other Christian
+6116		Celestial
+6117		Other Christian, Brazil
+6118		Christian Congregation of Brazil
+6119		Brazilian Catholic Apostolic
+6120		Brazil for Christ
+6121		Foursquare Gospel
+6122		Universal of the Kingdom of God
+6123		House of the Blessing
+6124		House of Prayer
+6125		God is Love
+6126		Maranata
+6127		Other Christian, Brazil 1991
+6128		Undetermined Protestant
+6129		Other traditional Protestant
+6130		Neo-Christian
+6131		Other Neo-Christian
+6132		Undetermined Christian
+6133		Other Christian, Brazil 2000
+6134		Other Catholic
+6135		Renewed Evangelical Protestant without institutional ties
+6136		Pentecostal Evangelical without institutional ties
+6137		New Life Evangelical Protestant Pentecostal
+6138		Evangelical Protestant Biblical Revival Pentecostal
+6139		Chain Of Prayer Pentecostal
+6140		Undetermined Evangelical Protestant
+6141		Religion Of God
+6142		Christian without institutional ties
+6143		Other Christian, Brazil 2010
+6144		Salvation Army
+6145		Other Christian, Canada
+6146		Other Catholic
+6147		United Church
+6148		Protestant, not specified
+6149		Other Protestant
+6150		Other Christian, Cameroon
+6151		Other Christian, Fiji
+6152		Christian undefined
+6153		Church of England
+6154		Gospel Hall and Brethern
+6155		Christian Mission Fellowship (CMF) or Every Home
+6156		Salvation Army
+6157		All Nations Christian Fellowship
+6158		Apostles Gospel Outreach Fellowship
+6159		Christian Outreach Centre
+6160		Other Christian
+6161		Other Christian, Germany
+6162		Oriental Christian
+6163		Other Christian, Ghana
+6164		Other Christian, Iran
+6165		Assyrian or Chaldean
+6166		Armenian
+6167		Other Christians
+6168		Other Christian, Indonesia
+6169		Other Christian
+6170		Protestant/Other Christian
+6171		Other Christian, Ireland
+6172		Church of Ireland
+6173		Church of Scotland
+6174		Independent
+6175		Unitarian
+6176		Salvation Army
+6177		Free Church
+6178		Brethren
+6179		Christian Brethren
+6180		Plymouth Brethren
+6181		Quaker
+6182		Other Christians
+6183		Other Christian, Jamaica
+6184		Brethren
+6185		Church of God
+6186		Church of God of Prophecy
+6187		Other Church of God
+6188		United Church
+6189		Salvation Army
+6190		New Testament
+6191		Disciples of Christ
+6192		Other Christian, Mauritius
+6193		Christian Tamil
+6194		Salvation and Healing Mission
+6195		Voice of Deliverance
+6196		Other Christian
+6197		Other Christian, Mexico
+6198		Anabaptist
+6199		Calvinist
+6200		Cuaquera
+6201		Disciples of Christ
+6202		Christian Friendship Church
+6203		Prayer House Church
+6204		Faith Center
+6205		Agape Force Church
+6206		Alpha and Omega Church
+6207		Living Water Church
+6208		Apostolic Church
+6209		Church of God
+6210		Church of God of Prophecy
+6211		Complete Gospel Church
+6212		Evangelical Siblings Church
+6213		Upper Room Church
+6214		Pentecostal Indigenous Church
+6215		Angular Stone Voice Church
+6216		Pentecostal Missionary
+6217		Christian
+6218		Christian Societies
+6219		Evangelical
+6220		Evangelical Societies
+6221		New Testament Evangelical
+6222		Pentecostal
+6223		Pentecostal Societies
+6224		Independent Pentecostal
+6225		Evangelical Christian Societies
+6226		Pentecostal Christian Societies
+6227		Evangelical Pentecostal Societies
+6228		Evangelical Pentecostal Christian Societies
+6229		Soldiers of Christ's Cross Church
+6230		Tabernacle
+6231		Traditionalists
+6232		Other Evangelical Pentecostal Societies
+6233		Pentecostal not clearly specified
+6234		Living God, Light of the World
+6235		Christian and Missionary Alliance
+6236		Non-Pentecostal Apostolic
+6237		Evangelical Associations
+6238		Biblical
+6239		Confraternities
+6240		Christ Church
+6241		Peace Grace and Misericordia Church
+6242		Open Bible Church
+6243		Holiness Church
+6244		Evangelical Salem Church
+6245		Beautiful Woman Dressed in the Sun
+6246		Messianic Church
+6247		Evangelical Ministers
+6248		Evangelical Missionaries
+6249		Evangelical Movements
+6250		New Jerusalem
+6251		World Vision Church
+6252		Evangelical not clearly specified
+6253		Biblical - non-evangelicals
+6254		Other Christians not clearly specified
+6255		Assumptionist
+6256		Carmelite
+6257		Claretian
+6258		Conception Franciscan
+6259		Maronite Diocese of Mexico
+6260		Dominican
+6261		Servants of Mary Immaculate
+6262		Franciscan
+6263		Guadalupan
+6264		Daughters of the Immaculate Conception
+6265		Jesuit
+6266		Legionaries of Christ
+6267		Divine Word Missionary
+6268		Pauline
+6269		Sacred Heart
+6270		Saint Joseph of Tarbes
+6271		Servant of the Lord and the Virgin
+6272		Servant of Jesus
+6273		Greek Catholic Church
+6274		Reformed Roman Catholic Church
+6275		Mexican National Catholic Church
+6276		Tridentine Latin Rite Catholic Church
+6277		Priestly Society Trento
+6278		Mexican Catholic Union of Trento
+6279		Anabaptist / Memnonite
+6280		Anglican / Episcopal
+6281		House of Prayer
+6282		Center of Faith, Hope and Love of the Missionary Revival Crusade
+6283		Center of Faith, Hope and Love Agape Force
+6284		Salvation Army
+6285		Independent Pentecostal Fellowship
+6286		Upper Chamber Church
+6287		Faith Apostolic Church of Jesus Christ
+6288		Spiritual Christian Church
+6289		Pentecostal Evangelical Christian Church
+6290		Interdenominational Christian Church
+6291		Church of God Full Gospel in Mexico
+6292		Church of Jesus Christ on the Rock
+6293		Christ Evangelical Pentecostal Church Rock of my Salvation
+6294		Mexican Church of Christ's Gospel Pentecost
+6295		United Pentecostal Church of Mexico
+6296		Universal Church of the Kingdom of God
+6297		Only Christ Savior Christian Church
+6298		Independent Evangelical Pentecostal Movement
+6299		Prince of Peace
+6300		National Union of Evangelical Christian Churches (UNICE)
+6301		Union of Independent Evangelical Churches
+6302		Other associations Pentecostal
+6303		Church of the Living God, Pillar and Support of Truth, the Light of the World
+6304		Bible Church
+6305		Interdenominational Christian Church in Mexico
+6306		Church of Christ
+6307		Honey Church of Christ
+6308		Independent Evangelical Church in Mexico
+6309		Renewed Church of Jesus Christ and the Apostles of Divine Love
+6310		Other Christian and Evangelical associations without Pentecostal support
+6311		Faith Christian Church
+6312		Traditional Apostolic Catholic Holy Church Mexico-USA
+6313		Mexican Apostolic Catholic Church
+6314		Elias
+6315		Spiritualistic
+6316		Spiritualist
+6317		Marian Trinitarian Spirituality
+6318		Spirituality of the Third Age
+6319		Christian Spiritual
+6320		Judiciary Society Reign of Leonardo Alcalá Leos
+6321		Spirituality for the Divine Master and the purity of Mary
+6322		Light and Hope
+6323		Holy Spirit, Purity, Love and Light
+6324		Christian Science
+6325		Other Christian, Netherlands
+6326		Reformed Churches in The Netherlands
+6327		Other Reformed
+6328		Other Christian, Papua New Guinea
+6329		Asian Pacific Christian Mission
+6330		Asutalian Church
+6331		Bamu River Mission
+6332		Christian Brethren Church of PNG
+6333		Christian Mission of Many Lands
+6334		Christian Revival Crusade
+6335		Christain Union Mission
+6336		Church of Christ of PNG
+6337		Faith mission
+6338		Four Square Gospel Mission
+6339		Kwato Church
+6340		Life Center
+6341		Lighthouse church
+6342		New Guinea Gospel Mission
+6343		New Life Mission
+6344		New tribes Mission
+6345		Paliau Christian Native Church
+6346		Rhema Fellowship
+6347		Salvation Army
+6348		Sovereign Grace
+6349		United Church
+6350		Wewak Fellowship
+6351		Western Highland
+6352		Independent
+6353		Plymouth Brethern
+6354		Tiliba Mission
+6355		Tokarara Christian Fellowship
+6356		Village Mission
+6357		Other Christian
+6358		Other Christian, Paraguay
+6359		Christian Community
+6360		Free Brothers
+6361		Church of God
+6362		Church of God of Prophecy
+6363		New testament
+6364		God is love
+6365		Universal Church of the Kingdom of God
+6366		People of God
+6367		Family worship center
+6368		Pseudo-Christian groups
+6369		Other Christian, Philippines
+6370		Aglipay
+6371		Bible Christian Committees
+6372		Born-again Christian
+6373		Bread of Life Ministries
+6374		Cathedral of Praise, Incorporated
+6375		Charismatic Full Gospel Ministries
+6376		Christ the Living Stone Fellowship
+6377		Christian and Missionary Alliance
+6378		Christians Missions
+6379		Christian Reformed Church in the Philippines, Incorporated
+6380		Church of Christ
+6381		Crusaders of the Divine Church of Christ, Incorporated
+6382		Evangelical Christian Outreach Foundation
+6383		Evangelical Free Church
+6384		Filipino Assemblies of the First Born Inc.
+6385		Foursquare Gospel
+6386		Free Believers in Christ Fellowship
+6387		Free Mission in the Philippines Inc.
+6388		God World Mission
+6389		Good News Christian Churches
+6390		IEMELIF Reform Movement
+6391		Iglesia Evangelista Methodista en Las
+6392		Iglesia Evangelica Unida de Cristo
+6393		Iglesia ni Cristo
+6394		Iglesia sa Dios Espiritu Santo, Incorporated
+6395		Jesus Christ Saves Global Outreach
+6396		Jesus is Alive Community, Incorporated
+6397		Jesus is Lord Church
+6398		Jesus Reigns Ministries
+6399		Love of Christ International Ministries
+6400		Other Evangelical
+6401		Other Evangelical Church
+6402		Other Protestants
+6403		Philippine Ecumenical Christian Church
+6404		Philippine Evangelical Mission
+6405		Philippine Grace Gospel Fellowship
+6406		Philippines Benevolent Missionaries
+6407		Philippines General Council of the Assemblies of God
+6408		Potter's House Christian Center
+6409		Salvation Army Philippines
+6410		Take the Nation for Jesus Global Ministries (Corpus Christi)
+6411		UNIDA Evangelical Church
+6412		Union Espiritista Cristiana de Filipinas, Incorporated
+6413		United Church of Christ in the Philippines
+6414		United Evangelical Church of the Philippines (Chinese)
+6415		Victory Chapel Christian Fellowship
+6416		Wesleyan Church
+6417		World Missionary Evangelism
+6418		Worldwide Church of God
+6419		Zion Christian Community Church
+6420		Other Christian, Portugal
+6421		Other Christian, Romania
+6422		Greek Catholic
+6423		Reformed Church
+6424		Evangelic of Augustan Confession
+6425		Evangelic Synodo-Presbyterian
+6426		Christian of Old Rite
+6427		Christian by Gospel
+6428		Evangelic
+6429		Other Christian, Rwanda 2002
+6430		Other Christian, Sierra Leone
+6431		Other Christian, South Africa
+6432		Reformed
+6433		International Fellowship of Christian Churches
+6434		Apostolic Faith Mission of SA
+6435		Other Apostolic Churches
+6436		Pinkster Protestant Church
+6437		Afrikaanse Protestant Church
+6438		Full Gospel Church of God in Southern Africa
+6439		Pentecostal Churches
+6440		Salvation Army
+6441		Bandla Lama Nazaretha
+6442		African Methodist Episcopal Church
+6443		St John's Apostolic Church
+6444		International Pentecost Church
+6445		Ethiopian type churches
+6446		Ethnic churches
+6447		Other African Independent Churches
+6448		Other Christian Churches
+6449		Other Catholic Churches
+6450		Other Pentecostal Churches
+6451		Other Orthodox Churches
+6452		Other African Apostolic churches
+6453		Other Assemblies
+6454		Christian Scientist
+6455		Christian Centres
+6456		Other Evangelical Churches
+6457		Other Charismatic Churches
+6458		Just a Christian or non-denominational
+6459		Other
+6460		Other Christian, Suriname
+6461		Other Christian
+6462		Other Christian, Saint Lucia
+6463		Church of God
+6464		Other Christian, Senegal
+6465		Other Christian
+6466		Other Christian, Switzerland
+6467		Other protestant churches and communities
+6468		Christ-Catholic church
+6469		Other Christian communities
+6470		Other Christian, Trinidad and Tobago
+6471		Church of God
+6472		African Methodist Espiscopalians
+6473		Brethren, Christian or Plymouth
+6474		Church of Christ
+6475		Gospel Hall or Gospel Missionary
+6476		Nazarenes
+6477		Pilgrim Holiness
+6478		Ethiopian Orthodox
+6479		Open Bible Church
+6480		Assemblies of Yahweh
+6481		Evangelical Church of West Indies
+6482		Christadelphian
+6483		Full Gospel Fellowship
+6484		Dutch Reform
+6485		Christian Brotherhood Assembly
+6486		Other Christian, Uganda
+6487		Other Christian
+6488		Salvation Army
+6489		Other Christian non-Catholic, Uruguay
+6490		Other Christian non-Catholic, Guatemala
+6491		Other Christian, Togo
+7000		Other
+7001		Bahai
+7002		Sikh
+7003		Rastafarian
+7100		Other, Armenia
+7101		Pagan
+7102		Shar-fadinian
+7103		Other, Austria
+7104		Unification Church, Austria
+7105		Other, Benin
+7106		Traditional
+7107		Vodoun
+7108		Other, Botswana
+7109		Badimo
+7110		Other, Brazil
+7111		Spiritist
+7112		Kardecist Spiritist
+7113		Afro Spiritist
+7114		Mediumistic Spiritist
+7115		Umbandist Mediumistic
+7116		Candomblecist Mediumistic
+7117		Other Afro-Brazilian
+7118		Oriental, Brazil
+7119		New Oriental
+7120		Oriental Seicho No-le
+7121		Other Oriental, Brazil
+7122		Esoteric, Brazil
+7123		Indigenous, Brazil
+7124		Other minority groups, Brazil
+7125		Other, Burkina Faso
+7126		Animist
+7127		Other, Cameroon
+7128		Animist
+7129		Other, Canada
+7130		Eastern religions, Canada
+7131		Other, Chile
+7132		Theosophism
+7133		Shintoism
+7134		Other, Ethiopia
+7135		Traditional
+7136		Other, Ethiopia
+7137		Other, Fiji
+7138		Confucian
+7139		Kabir Panthi
+7140		Satya Sai Baba
+7141		Bahai
+7142		Other non-Christian, Fiji
+7143		Other, Germany
+7144		Other, Germany
+7145		Other, Ghana
+7146		Traditional, Ghana
+7147		Other, Guinea
+7148		Animist
+7149		Other, Guinea
+7150		Other, Haiti
+7151		Voodoo
+7152		Other, India
+7153		Jainism
+7154		Zoroastrianism
+7155		Other, India
+7156		Other, Indonesia
+7157		Confucianism
+7158		Other, Indonesia
+7159		Other, Iran
+7160		Zoroastrian
+7161		Other, Iran
+7162		Other, Jamaica
+7163		Muslim/Hindu
+7164		Other, Israel
+7165		Druse
+7166		Other, Israel
+7167		Other, Liberia
+7168		Traditional
+7169		Other, Malaysia
+7170		Confucianism/Taoism
+7171		Tribal/Folk religion, Malaysia
+7172		Other, Mali
+7173		Animist
+7174		Other, Mexico
+7175		Brahmanism
+7176		Hare Krishna
+7177		Shintoism
+7178		Taoism
+7179		Mexican Movements
+7180		Ananda Marga
+7181		Church of Scientology
+7182		Masons
+7183		Raelian Movement
+7184		New Age Movement
+7185		Neoisraelites
+7186		Occultists
+7187		Palmar of Troya
+7188		Rose Cross
+7189		Theosophism
+7190		Spiritualist Special Keys
+7191		Onkaranada Center
+7192		Confucianism
+7193		Shia
+7194		Universal Great Brotherhood
+7195		Esoteric Science
+7196		Gnosticism
+7197		Metaphysics
+7198		Wicca
+7199		Shamanism
+7200		The Custom
+7201		Mexicayotl
+7202		Restorative Confederate Movement of Anahuac Culture
+7203		African Origin
+7204		Indigenous Religions
+7205		Growing in Grace
+7206		Eckankar
+7207		Transcendental Meditation
+7208		Mission Branch
+7209		Children of God
+7210		Sri Sathya Sai Baba
+7211		Other new religious movements
+7212		Other, Nepal
+7213		Kirat
+7214		Jain
+7215		Garaute
+7216		Tap jura
+7217		Bon
+7218		Prakriti
+7219		Other, Nigeria
+7220		Traditional
+7221		Other, Pakistan
+7222		Ahmadi
+7223		Parsi
+7224		Scheduled caste
+7225		Other, Paraguay
+7226		Philosophical revelations
+7227		Indigenous religion
+7228		Reyukai
+7229		Other, Paraguay
+7230		Other, Philippines
+7231		Door of Faith
+7232		Faith Tabernacle Church (Living Rock Ministries)
+7233		Iglesia Filipina Independiente
+7234		International One Way Outreach
+7235		Miracle Life Fellowship International
+7236		Miracle Revival Church of the Philippines
+7237		Philippine Good News Ministries
+7238		Philippine Missionary fellowship
+7239		Things to Come
+7240		Way of Salvation
+7241		Word of the World
+7242		Word International Ministries
+7243		Tribal Religions, Philippines
+7244		Other, Romania
+7245		Unitarian
+7246		Armenian
+7247		Mosaic
+7248		Other, Romania
+7249		Other, Rwanda
+7250		Traditional religion, Rwanda
+7251		Other, Rwanda
+7252		Other, Sierra Leone
+7253		Traditional religion, Sierra Leone
+7254		Other, South Africa
+7255		African traditional belief
+7256		Taoist
+7257		Confucian
+7258		New Age
+7259		Winti
+7260		Javanism
+7261		Other non-Christian, S. Africa
+7262		Other, Suriname
+7263		Javanism
+7264		Traditional
+7265		Winti
+7266		Other, Thailand
+7267		Confucian
+7268		Other, Trinidad and Tobago
+7269		Pocamania or Shango
+7270		Orisha
+7271		Other, Uganda
+7272		Traditional religion
+7273		Mammon
+7274		Other non-Christian, Uganda
+7275		Other, United Kindom
+7276		Other, Uruguay
+7277		Umbanda/other Afro-American
+7278		Other, Uruguay
+7279		Other, Vietnam
+7280		Hoa Hoa
+7281		Cao Dai
+7282		Other, Togo
+7283		Animist
+7900		Other, not elsewhere classified
+9999		Unknown

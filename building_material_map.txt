@@ -1,0 +1,92 @@
+000		NIU (not in universe)
+100		No walls
+200		Cardboard, scrap, and miscellaneous materials
+201		Waste, scrap, or discarded material
+202		Fabric or discarded material
+203		Zinc, fabric, cardboard, tins, and waste material
+204		Cardboard sheet
+205		Plastic sheeting, cardboard
+206		Makeshift, salvaged, or improvised materials
+207		Reused materials
+300		Wood
+310		Rough wood
+320		Wood, fibercement or plywood
+330		Wood, formica, and other
+340		Wood or bamboo
+350		Wood or straw
+400		Other plant-based materials
+401		Plantain leaves and similar material
+402		Bamboo or cane
+403		Bamboo, sawali, cogon, nipa
+404		Straw or bamboo
+405		Grass, straw or reed
+406		Reed, bamboo, or palm
+407		Cane, palm leaves, logs
+408		Palm leaves or palm planks
+409		Bark, sticks, or cane
+500		Masonry, stone, cement, adobe, metal, glass, and other fabricated materials (sometimes mixed with wood)
+501		Brick, block, stone, or cement
+502		Brick, stone, concrete
+503		Brick, stone, or substitutes (dividing panels made of reinforced concrete)
+504		Brick, stone, or substitutes (dividing panels made of wood)
+505		Brick or tile
+506		Brick or stone
+507		Brick or cement block
+508		Brick with plaster exterior
+509		Brick without plaster exterior
+510		Burnt or stabilized brick
+511		Brick
+512		Unburnt brick
+513		Unburnt brick with cement
+514		Unburnt brick with mud
+515		Concrete
+516		Landcrete
+517		Cement blocks
+518		Cement blocks or brick
+519		Cement blocks or brick, unfinished
+520		Cement and adobe bricks
+521		Cement and stone block
+522		Cement and tiles
+523		Reinforced concrete, pre-cast concrete panels, or steel skeleton framed concrete
+524		Concrete, reinforced concrete, blocks, panels
+525		Adobe
+526		Adobe walls with plaster exterior
+527		Adobe walls without plaster exterior
+528		Adobe with cement exterior
+529		Wood and earth adobe
+530		Wood and cement adobe
+531		Mud or adobe
+532		Pressed dirt
+533		Clay
+534		Coated clay/mud with sticks/cane
+535		Clay or clay-covered sticks
+536		Netted bamboo or cane with mud
+537		Bundle of mud, straw, other materials
+538		Mud with wood/wattle
+539		Pole and mud
+540		Mud with cement
+541		Unfinished lathe and plaster, stucco, etc.
+542		Stone
+543		Hand-laid stone
+544		Quarried stone
+545		Cut stone and concrete
+546		Cemented stone
+547		Stone with clay
+548		Blocks of light material
+549		Prefabricated material
+550		Asbestos
+551		Metal or asbestos sheet
+552		Metal or iron sheet
+553		Metal or fibercement sheeting
+554		Galvanized iron or aluminum
+555		Tin
+556		Glass
+557		Cloth
+558		Covintec panels
+559		Mixed material
+560		Mixed material: part wood; part concrete, brick, or stone
+561		Wood plastered with clay, adobe, other materials; wood pressed panels; rolled mud bricks; etc.
+562		Mixed material: wood or galvanized metal
+570		Mainly permanent materials
+600		Other material
+999		Unknown/missing
