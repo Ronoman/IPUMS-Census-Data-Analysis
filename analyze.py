@@ -54,11 +54,38 @@ def createEntry(line):
 
     return entry
 
-#def calculateEthnicityDistribution(entries):
-    #ethnicities = {}
+def getEntriesWithProps(entries, props):
+    return [p for p in filter(lambda p: p.hasProps(props), entries)]
 
-    #for e in maps["ethnicities"].keys():
-        #count = 
+def calculateDistribution(entries, variable):
+    regions = ["Bucharest Sector 1", "Bucharest Sector 2", "Bucharest Sector 3", "Bucharest Sector 4", "Bucharest Sector 5", "Bucharest Sector 6"]
+
+    distributions = {}
+
+    for r in regions:
+        print(f"Region: {r}")
+        distributions[r] = {}
+
+        # Get all entries within that region
+        in_region = getEntriesWithProps(entries, {"location": r})
+
+        # For each possible ethnicity, calculate the fraction of that ethnicity over the total pop of that region
+        for e in maps[variable].values():
+            fraction_of_pop = len(getEntriesWithProps(in_region, {variable: e}))/len(in_region)
+
+            # Add each value that is != 0 to distributions[region][ethnicity]
+            if fraction_of_pop > 0:
+                distributions[r][e] = fraction_of_pop
+
+        # Sort the items in the dict by value, highest to lowest (reverse)
+        sorted_distributions = sorted(distributions[r].items(), key=lambda item: item[1], reverse=True)
+
+        for e,f in sorted_distributions:
+            print(f"{variable}: {e}\t\t\t\t\t\t% Pop: {f*100:.3f}")
+        
+        print()
+
+
 
 # All lines from the data file
 lines = []
@@ -90,6 +117,7 @@ for m in mapTypes:
 print("Pulled all Bucharest data. Entering interactive terminal to check different parameters for those in Bucharest")
 print(f"Entries in bucharest: {len(entries_in_bucharest)}")
 
+'''
 while True:
     var_name = input("Variable name (? for all): ")
 
@@ -119,3 +147,7 @@ while True:
 
     print(f"Total count: {len(matching_entries)}")
     print(f"Total percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
+'''
+
+calculateDistribution(entries_in_bucharest, "ethnicity")
+calculateDistribution(entries_in_bucharest, "religion")
