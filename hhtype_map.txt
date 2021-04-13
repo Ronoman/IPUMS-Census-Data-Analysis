@@ -1,0 +1,13 @@
+00		Vacant household
+01		One-person household
+02		Married/cohab couple, no children
+03		Married/cohab couple with children
+04		Single-parent family
+05		Polygamous family
+06		Extended family, relatives only
+07		Composite household, family and non-relatives
+08		Non-family household
+09		Unclassified subfamily
+10		Other relative or non-relative household
+11		Group quarters
+99		Unclassifiable

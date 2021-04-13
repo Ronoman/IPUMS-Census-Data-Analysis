@@ -1,0 +1,7 @@
+00		Vacant
+10		Households
+20		Group quarters (collective), n.s.
+21		Institutions
+22		Other group quarters
+29		1-person unit created by splitting large household
+99		Unknown/group quarters not identified
