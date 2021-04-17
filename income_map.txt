@@ -1,0 +1,20 @@
+NIU (not in universe)		0
+Agriculture, fishing, and forestry		0
+Mining and extraction		0
+Manufacturing		0
+Electricity, gas, water and waste management		0
+Construction		0
+Wholesale and retail trade		0
+Hotels and restaurants		0
+Transportation, storage, and communications		0
+Financial services and insurance		0
+Public administration and defense		0
+Services, not specified		0
+Business services and real estate		0
+Education		0
+Health and social work		0
+Other services		0
+Private household services		0
+Other industry, n.e.c.
+Response suppressed		0
+Unknown		0

@@ -1,4 +1,4 @@
-00		Part of a room; no rooms
+00		0
 01		1
 02		2
 03		3
@@ -28,6 +28,6 @@
 27		27
 28		28
 29		29
-30		30+
-98		Unknown
-99		NIU (not in universe)
+30		30
+98		0
+99		0
