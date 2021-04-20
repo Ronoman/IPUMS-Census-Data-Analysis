@@ -1,20 +1,20 @@
 NIU (not in universe)		0
-Agriculture, fishing, and forestry		0
-Mining and extraction		0
-Manufacturing		0
-Electricity, gas, water and waste management		0
-Construction		0
-Wholesale and retail trade		0
-Hotels and restaurants		0
-Transportation, storage, and communications		0
-Financial services and insurance		0
-Public administration and defense		0
+Agriculture, fishing, and forestry		2787
+Mining and extraction		5126
+Manufacturing		3186
+Electricity, gas, water and waste management		4321
+Construction		3395
+Wholesale and retail trade		3055
+Hotels and restaurants		1685
+Transportation, storage, and communications		7060
+Financial services and insurance		6876
+Public administration and defense		5118
 Services, not specified		0
-Business services and real estate		0
-Education		0
-Health and social work		0
-Other services		0
-Private household services		0
-Other industry, n.e.c.
+Business services and real estate		3275
+Education		3597
+Health and social work		4382
+Other services		2358
+Private household services		2358
+Other industry, n.e.c.		0
 Response suppressed		0
 Unknown		0

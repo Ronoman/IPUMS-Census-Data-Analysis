@@ -2,7 +2,8 @@ import pickle, os
 from collections import defaultdict
 
 # Completely arbitrary, will be decided based on real info soon
-SALARY_CUTOFF = 20000
+LOW_SALARY = 20000
+HIGH_SALARY = 60000
 
 # List of all maps between number and data
 # Each key is one of the first elements in each mapTypes list
@@ -41,7 +42,7 @@ mapTypes = [["serial", 16, 28],
             ["empstat", 89, 90],
             ["eempstat", 93, 96],
             ["indgen", 96, 99],
-            ["hrsmain", 99, 102]
+            ["hrsmain", 99, 102],
             ["ro2011a_ethnic", 102, 104],
             ["income"]]
 
@@ -50,6 +51,7 @@ def loadMap(mapType):
     # If it is serial, it does not have a lookup table. Otherwise, pull its lookup table, and load it into the `maps` variable
     if not mapType in ["serial", "pernum", "momloc", "hrsmain"]:
         with open(mapType + "_map.txt") as f:
+            print(f"Processing {mapType}")
             mappings = f.readlines()
             mappings = [m.split("\t\t") for m in mappings]
             mappings = [[m[0],  m[1].strip("\n")] for m in mappings]
@@ -60,6 +62,7 @@ def loadMap(mapType):
                 thisMap.setdefault(k,v)
             
             maps.setdefault(mapType, thisMap)
+            print()
 
 # A single entry from the data file.
 class Entry:
@@ -106,14 +109,14 @@ def createEntry(line):
 
     entry = Entry(props)
 
-    # Get salary by indgen (reduce to salary/wk)
-    salary = int(maps["income"][entry.getProp("indgen")]) / 52.0
+    # Get salary by indgen (reduce to salary/wk from salary/mo)
+    salary = int(maps["income"][entry.getProp("indgen")]) / 4.0
 
     # Get hours by hrsmain
     hours = int(entry.getProp("hrsmain"))
 
     # Multiply together, convert hrs/wk to hrs/yr (*52), set to entry["income"]
-    entry["income"] = salary * hours * 52
+    entry.props["income"] = salary * hours * 52
 
     return entry
 
@@ -154,7 +157,7 @@ def calculateDistribution(entries, variable):
 
 # Helper fn: Returns all unique household entries.
 def getUniqueHouseholds(entries):
-    serials = {}
+    serials = set()
     households = []
     
     for e in entries:
@@ -172,25 +175,25 @@ def countHouseholds(entries):
 
 # Return count of entries with age < 18
 def countChildren(entries):
-    children = filter(lambda p: int(p.getProp("age")) < 18, entries)
+    children = list(filter(lambda p: int(p.getProp("age")) < 18, entries))
 
     return len(children)
 
 # Return count of women
 def countWomen(entries):
-    women = filter(lambda p: p.hasProp({"sex": "Female"}))
+    women = list(filter(lambda p: p.hasProps({"sex": "Female"}), entries))
 
     return len(women)
 
 # Return count of men
 def countMen(entries):
-    men = filter(lambda p: p.hasProp({"sex": "Male"}))
+    men = list(filter(lambda p: p.hasProps({"sex": "Male"}), entries_in_bucharest))
 
     return len(men)
 
 # Return count of women with 3 or more children
 def countWomenWith3Children(entries):
-    womenWithManyChildren = filter(lambda p: int(p.getProp("chborn")) > 2, entries)
+    womenWithManyChildren = list(filter(lambda p: int(p.getProp("chborn")) > 2, entries))
 
     return len(womenWithManyChildren)
 
@@ -241,13 +244,13 @@ def countWomen15OlderWithChild(all, entries):
 # Count the number of entries with education of Literacy Courses or Primary
 # ASSUMPTION: Minimum education is up through primary, but does not include anything else
 def countWithMinimumEducation(entries):
-    minEducation = filter(lambda p: p.getProp("educro") in ["Primary", "Literacy Courses"], entries)
+    minEducation = list(filter(lambda p: p.getProp("educro") in ["Primary", "Literacy Courses"], entries))
     
     return len(minEducation)
 
 # Count the number of entries who are over 10 years old
 def countAgeOver10(entries):
-    overTen = filter(lambda p: int(p.getProp("age")) > 10, entries)
+    overTen = list(filter(lambda p: int(p.getProp("age")) > 10, entries))
 
     return len(overTen)
 
@@ -270,7 +273,7 @@ def countTotalLivingArea(entries):
 # ASSUMPTION: If not eempstat == Employed, they are not employed
 #             (NIU, Unemployed, not economically active are all not employed)
 def countUnemployed(entries):
-    unemployed = filter(lambda p: not p.getProp("eempstat") == "Employed", entries)
+    unemployed = list(filter(lambda p: not p.getProp("eempstat") == "Employed", entries))
 
     return len(unemployed)
 
@@ -281,7 +284,7 @@ def countRooms(entries):
     # Get each unique household
     households = getUniqueHouseholds(entries)
 
-    for e in households.items:
+    for e in households:
         rooms += int(e.getProp("rooms"))
 
     return rooms
@@ -290,7 +293,7 @@ def countRooms(entries):
 def countPrivateHomes(entries):
     households = getUniqueHouseholds(entries)
 
-    private = filter(lambda h: h.getProp("ownership") == "Owned", households)
+    private = list(filter(lambda h: h.getProp("ownership") == "Owned", households))
 
     return len(private)
 
@@ -298,7 +301,7 @@ def countPrivateHomes(entries):
 def countPrivateWith5Rooms(entries):
     households = getUniqueHouseholds(entries)
 
-    large_households = filter(lambda h: h.getProp("ownership") == "Owned" and int(h.getProp("rooms")) > 4, entries)
+    large_households = list(filter(lambda h: h.getProp("ownership") == "Owned" and int(h.getProp("rooms")) > 4, entries))
 
     return len(large_households)
 
@@ -306,42 +309,42 @@ def countPrivateWith5Rooms(entries):
 # ASSUMPTION: Employed in EEMPSTAT is the only qualifier
 #             This matches with how the unemployed and economically active variables are used in the Armas report
 def countEconomicallyActive(entries):
-    return len(filter(lambda e: e.getProp("eempstat") == "Employed", entries))
+    return len(list(filter(lambda e: e.getProp("eempstat") == "Employed", entries)))
 
 # Count the number of socially dependand individuals
 # ASSUMPTION: Anyone younger than 12 or older than 80 are socially dependant. We could not find any discrete definitions
 #             of how this value should be calculated, from either the Armas report or independent research. This is
 #             as close to arbitrary as you can get.
 def countSociallyDependant(entries):
-    young = filter(lambda e: int(e.getProp("age")) < 12, entries)
-    old   = filter(lambda e: int(e.getProp("age")) < 80, entries)
+    young = list(filter(lambda e: int(e.getProp("age")) < 12, entries))
+    old   = list(filter(lambda e: int(e.getProp("age")) > 80, entries))
 
     return len(young) + len(old)
 
 # Count the number of individuals over 65 years old
 def countElderly(entries):
-    return len(filter(lambda e: int(e.getProp("age")) > 65, entries))
+    return len(list(filter(lambda e: int(e.getProp("age")) > 65, entries)))
 
 # Count the number of high income earners
 def countHighIncomeMen(entries):
-    high = filter(lambda p: int(p.getProp("income")) > SALARY_CUTOFF and p.getProp("sex") == "Male", entries)
+    high = list(filter(lambda p: int(p.getProp("income")) > HIGH_SALARY and p.getProp("sex") == "Male", entries))
 
     return len(high)
 
 def countHighIncomeWomen(entries):
-    high = filter(lambda p: int(p.getProp("income")) > SALARY_CUTOFF and p.getProp("sex") == "Female", entries)
+    high = list(filter(lambda p: int(p.getProp("income")) > HIGH_SALARY and p.getProp("sex") == "Female", entries))
 
     return len(high)
 
 # Count the number of low income earners
 def countLowIncome(entries):
-    low = filter(lambda p: int(p.getProp("income")) <= SALARY_CUTOFF, entries)
+    low = list(filter(lambda p: int(p.getProp("income")) < LOW_SALARY, entries))
 
     return len(low)
 
 # Count the number of widows
 def countWidows(entries):
-    widows = filter(lambda p: p.getProp("marst") == "Widowed", entries)
+    widows = list(filter(lambda p: p.getProp("marst") == "Widowed", entries))
 
     return len(widows)
 
@@ -367,15 +370,17 @@ def getIndicators(entries, all):
     # 3: Ratio widows in female population
     indicators.append(countWidows(entries) / countWomen(entries))
 
-    # 4: Housing density
-    indicators.append(len(entries) / countTotalLivingArea(entries))
+    # Skipped housing density, since it is 1/avg room area per person from our calculations
 
-    # 5: Average wage earners per household
-    # Defined by Armas as number with min education / number population, which is weird
-    # In my mind, it should be number employed / number population
+    # 4: Average wage earners per household
+    indicators.append(countEconomicallyActive(entries) / countHouseholds(entries))
+
+    # 5: Minimum level of education
     indicators.append(countWithMinimumEducation(entries) / len(entries))
 
-    # 6: 
+    # 6: Ratio of women with 3 children and more to women
+    # In some reports it is 3, others 5. Chose 3 here, but can be changed (pass in as parameter?)
+    indicators.append(countWomenWith3Children(entries) / countWomen(entries))
     ##############
 
     ### ECONOMIC ###
@@ -426,7 +431,7 @@ if os.path.exists("bucharest_entries.dat"):
     entries_in_bucharest = pickle.load(open("bucharest_entries.dat", "rb"))
 else:
     print("Loading from IPUMS data")
-    with open("ipumsi_00004.dat") as data:
+    with open("ipumsi_00006.dat") as data:
         lines = data.readlines()
 
     print(f"Data length: {len(lines)}")
@@ -485,15 +490,24 @@ for person in entries_in_bucharest:
 #         print(f"Total count: {len(matching_entries)}")
 #         print(f"Total percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
 
-with open("indicators.csv", "rw+") as f:
+with open("indicators.csv", "w") as f:
+    print(maps["religion"])
+
+    cols = ["", "Count", "Ratio elderly", "Ratio female", "Ratio children", "Ratio widows in female population", "Average wage earners per household", 
+     "Minimum level of education", "Ratio of women with 3 children and more to women", "Ratio of unemployed", "Ratio of low income", "Ratio of high income women",
+     "Ratio of high income men", "Room occupancy per household", "Average household room area", "Household population density", "Avg no. of private/owned households w/ 5 or more rooms",
+     "Average room area per person"]
+
+    f.write(",".join(cols) + "\n")
+
     # For each religion, get their indicators and write to file
-    for r in maps["religion"]:
-        entries = filter(lambda p: p.getProp("religion") == r, entries_in_bucharest)
+    for _,r in maps["religion"].items():
+        entries = list(filter(lambda p: p.getProp("religion") == r, entries_in_bucharest))
 
         if len(entries) > 0:
             indicators = getIndicators(entries, entries_in_bucharest)
             indicator_str = ",".join(str(i) for i in indicators)
-            indicator_str = r + "," + indicator_str + "\n"
+            indicator_str = r + "," + str(len(entries)) + "," + indicator_str + "\n"
 
             f.write(indicator_str)
             print(f"Got indicators for {r}")
@@ -501,13 +515,13 @@ with open("indicators.csv", "rw+") as f:
             print(f"Skipped {r} due to no entries")
 
     # For each ethnicity, get their indicators and write to file
-    for e in maps["ro2011a_ethnic"]:
-        entries = filter(lambda p: p.getProp("ro2011a_ethnic") == e, entries_in_bucharest)
+    for _,e in maps["ro2011a_ethnic"].items():
+        entries = list(filter(lambda p: p.getProp("ro2011a_ethnic") == e, entries_in_bucharest))
 
         if len(entries) > 0:
             indicators = getIndicators(entries, entries_in_bucharest)
             indicator_str = ",".join(str(i) for i in indicators)
-            indicator_str = r + "," + indicator_str + "\n"
+            indicator_str = e + "," + str(len(entries)) + "," + indicator_str + "\n"
 
             f.write(indicator_str)
             print(f"Got indicators for {e}")

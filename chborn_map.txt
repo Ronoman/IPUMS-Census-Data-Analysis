@@ -1,6 +1,6 @@
-00		No children
-01		1 child
-02		2 children
+00		0
+01		1
+02		2
 03		3
 04		4
 05		5
@@ -28,6 +28,6 @@
 27		27
 28		28
 29		29
-30		30+
-98		Unknown
-99		NIU (not in universe)
+30		30
+98		0
+99		0
