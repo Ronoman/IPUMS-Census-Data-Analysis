@@ -1,0 +1,13 @@
+00		No parent of person in household
+11		Link to head or spouse, unambiguous
+12		Link to head or spouse, ambiguous
+21		Child-Grandchild, within empirical child cap
+22		Child-Grandchild, within constructed child cap
+23		Child-Grandchild, exceeds child cap
+31		Specified Other Relatives, within empirical child cap
+32		Specified Other Relatives, within constructed child cap
+33		Specified Other Relatives, exceeds child cap
+41		Other Relatives, within empirical child cap
+42		Other Relatives, within constructed child cap
+51		Non-Relatives, within empirical child cap
+52		Non-Relatives, within constructed child cap

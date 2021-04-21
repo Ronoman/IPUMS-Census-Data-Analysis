@@ -1,0 +1,20 @@
+000		NIU (not in universe)
+010		Agriculture, fishing, and forestry
+020		Mining and extraction
+030		Manufacturing
+040		Electricity, gas, water and waste management
+050		Construction
+060		Wholesale and retail trade
+070		Hotels and restaurants
+080		Transportation, storage, and communications
+090		Financial services and insurance
+100		Public administration and defense
+110		Services, not specified
+111		Business services and real estate
+112		Education
+113		Health and social work
+114		Other services
+120		Private household services
+130		Other industry, n.e.c.
+998		Response suppressed
+999		Unknown

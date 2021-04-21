@@ -1,0 +1,5 @@
+0		NIU (not in universe)
+1		Employed
+2		Unemployed
+3		Inactive
+9		Unknown/missing

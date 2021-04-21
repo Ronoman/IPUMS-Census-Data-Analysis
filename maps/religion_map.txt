@@ -1,0 +1,9 @@
+0		NIU (not in universe)
+1		No religion
+2		Buddhist
+3		Hindu
+4		Jewish
+5		Muslim
+6		Christian
+7		Other
+9		Unknown

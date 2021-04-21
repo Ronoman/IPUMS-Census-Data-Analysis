@@ -1,0 +1,4 @@
+0		NIU (not in universe)
+1		Owned
+2		Not owned
+9		Unknown

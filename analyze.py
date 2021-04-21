@@ -1,6 +1,11 @@
 import pickle, os
 from collections import defaultdict
 
+# Local libraries, used so that this file isn't a million lines long
+from loader import DataLoader
+from entry import Entry
+from visualize import Visualizer
+
 # Completely arbitrary, will be decided based on real info soon
 LOW_SALARY = 20000
 HIGH_SALARY = 60000
@@ -9,16 +14,6 @@ HIGH_SALARY = 60000
 # Each key is one of the first elements in each mapTypes list
 # Each value is a dict, which maps numbers (keys) to their human-readable value
 maps = {}
-
-# The different variable types we care about.
-# [variable name, col_start - 1, col_end]
-# mapTypes = [["building_material", 70, 73], 
-#             ["ethnicity", 113, 115], 
-#             ["general_religion", 108, 109], 
-#             ["location", 65, 68], 
-#             ["religion", 109, 113], 
-#             ["structure_age", 77, 80], 
-#             ["structure_age_no_interval", 80, 83]]
 
 # The different variable types we care about.
 # [variable name, col_start - 1, col_end]
@@ -45,80 +40,6 @@ mapTypes = [["serial", 16, 28],
             ["hrsmain", 99, 102],
             ["ro2011a_ethnic", 102, 104],
             ["income"]]
-
-# Load a passed in map file to the maps dict
-def loadMap(mapType):
-    # If it is serial, it does not have a lookup table. Otherwise, pull its lookup table, and load it into the `maps` variable
-    if not mapType in ["serial", "pernum", "momloc", "hrsmain"]:
-        with open(mapType + "_map.txt") as f:
-            print(f"Processing {mapType}")
-            mappings = f.readlines()
-            mappings = [m.split("\t\t") for m in mappings]
-            mappings = [[m[0],  m[1].strip("\n")] for m in mappings]
-
-            thisMap = {}
-            
-            for (k,v) in mappings:
-                thisMap.setdefault(k,v)
-            
-            maps.setdefault(mapType, thisMap)
-            print()
-
-# A single entry from the data file.
-class Entry:
-    def __init__(self, props):
-        # self.props is a dictionary which maps a variable name to a value
-        self.props = props
-
-    def getProp(self, key):
-        return self.props[key]
-
-    # If this person has all of the properties in props, return true
-    def hasProps(self, props):
-        for k in props:
-            if not self.props[k] == props[k]:
-                return False
-        return True
-
-    # Returns true if any of the elements values exist as a k,v pair in self.props
-    # Used to find if this entry is one of a group for a single variable
-    def hasOneOf(self, var_name, values):
-        for v in values:
-            if self.hasProps({var_name: v}):
-                return True
-        return False
-
-    def __repr__(self):
-        out = "Entry:"
-
-        for k,v in self.props.items():
-            out = out + f"\n\t{k}:\t{v}"
-
-        return out
-
-# Creates an Entry object from a line in the data file
-def createEntry(line):
-    props = defaultdict(dict)
-    for m in mapTypes:
-        # Skip over all variables that do not have a lookup table
-        if m[0] in ["serial", "pernum", "momloc", "hrsmain"]:
-            props[m[0]] = line[m[1]:m[2]]
-        # All others, except income (not in dataset) have a map lookup
-        elif not m[0] == "income":
-            props[m[0]] = maps[m[0]][line[m[1]:m[2]]]
-
-    entry = Entry(props)
-
-    # Get salary by indgen (reduce to salary/wk from salary/mo)
-    salary = int(maps["income"][entry.getProp("indgen")]) / 4.0
-
-    # Get hours by hrsmain
-    hours = int(entry.getProp("hrsmain"))
-
-    # Multiply together, convert hrs/wk to hrs/yr (*52), set to entry["income"]
-    entry.props["income"] = salary * hours * 52
-
-    return entry
 
 def getEntriesWithProps(entries, props):
     return [p for p in filter(lambda p: p.hasProps(props), entries)]
@@ -348,11 +269,25 @@ def countWidows(entries):
 
     return len(widows)
 
+variableMap = {
+    "households": getUniqueHouseholds,
+}
+
 ########################################
 
 ########################################
-#  INDICATOR PROCESSING   #
+#        INDICATOR PROCESSING          #
 ########################################
+
+# indicatorMap = {"elderly": 0,
+#                 "female": 1,
+#                 "children": 2,
+#                 "widows": 3,
+#                 "wage_earners": 4,
+#                 "minimum_education": 5,
+#                 "women_with_3_children": 6,
+#                 "unemployed": 7,
+#                 ""}
 
 def getIndicators(entries, all):
     indicators = []
@@ -418,13 +353,165 @@ def getIndicators(entries, all):
 
 ########################################
 
+########################################
+###         INTERFACE MODES          ###
+########################################
+
+# Run armas analysis and save data to indicators.csv
+def analyze():
+    with open("indicators.csv", "w") as f:
+        print(maps["religion"])
+
+        cols = ["", "Count", "Ratio elderly", "Ratio female", "Ratio children", "Ratio widows in female population", "Average wage earners per household", 
+        "Minimum level of education", "Ratio of women with 3 children and more to women", "Ratio of unemployed", "Ratio of low income", "Ratio of high income women",
+        "Ratio of high income men", "Room occupancy per household", "Average household room area", "Household population density", "Avg no. of private/owned households w/ 5 or more rooms",
+        "Average room area per person"]
+
+        f.write(",".join(cols) + "\n")
+
+        # For each religion, get their indicators and write to file
+        for _,r in maps["religion"].items():
+            entries = list(filter(lambda p: p.getProp("religion") == r, entries_in_bucharest))
+
+            if len(entries) > 20:
+                indicators = getIndicators(entries, entries_in_bucharest)
+                indicator_str = ",".join(str(i) for i in indicators)
+                indicator_str = r + "," + str(len(entries)) + "," + indicator_str + "\n"
+
+                f.write(indicator_str)
+                print(f"Got indicators for {r}")
+            else:
+                print(f"Skipped {r} due to no entries")
+
+        # For each ethnicity, get their indicators and write to file
+        for _,e in maps["ro2011a_ethnic"].items():
+            entries = list(filter(lambda p: p.getProp("ro2011a_ethnic") == e, entries_in_bucharest))
+
+            if len(entries) > 20:
+                indicators = getIndicators(entries, entries_in_bucharest)
+                indicator_str = ",".join(str(i) for i in indicators)
+                indicator_str = e + "," + str(len(entries)) + "," + indicator_str + "\n"
+
+                f.write(indicator_str)
+                print(f"Got indicators for {e}")
+            else:
+                print(f"Skipped {e} due to no entries")
+
+    print("Wrote to indicators.csv, go see if it worked!")
+
+# Run the interactive data explorer
+def interactive():
+    done = False
+
+    while not done:
+        var_name = input("Variable name (? for all, q to quit): ")
+
+        if var_name == "q":
+            done = True
+            continue
+
+        if var_name == "?":
+            for m in mapTypes:
+                print(m[0])
+            continue
+
+        if var_name not in [m[0] for m in mapTypes]:
+            print("Invalid variable name.")
+            continue
+
+        val = input("Value (? for possible values): ")
+
+        if val == "?":
+            m = maps[var_name]
+            for k in m:
+                print(m[k])
+            continue
+        
+        if val not in maps[var_name].values() and not val == "all":
+            print("Invalid value.")
+            continue
+
+        if val == "all":
+            print(f"All % for {var_name}:")
+            for v in maps[var_name].values():
+                print(v)
+                matching_entries = [p for p in filter(lambda p: p.hasProps({var_name: v}), entries_in_bucharest)]
+
+                print(f"\tTotal count: {len(matching_entries)}")
+                print(f"\tTotal percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
+        else:
+            matching_entries = [p for p in filter(lambda p: p.hasProps({var_name: val}), entries_in_bucharest)]
+
+            print(f"Total count: {len(matching_entries)}")
+            print(f"Total percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
+
+# Run an interactive plotting tool
+def graph(entries_in_bucharest):
+    done = False
+
+    while not done:
+        mode = input("Religion or ethnicity? (r or e, q to quit): ")
+
+        entries = []
+        title = ""
+
+        if mode == "q":
+            done = True
+            continue
+        elif mode == "r":
+            religion = input("Which religion: ")
+            title = religion
+
+            entries = [e for e in entries_in_bucharest if e.getProp("religion") == religion]
+        elif mode == "e":
+            ethnicity = input("Which ethnicity: ")
+            title = ethnicity
+
+            entries = [e for e in entries_in_bucharest if e.getProp("ro2011a_ethnic") == ethnicity]
+
+        if len(entries) == 0:
+            print("Invalid identifier, or empty set. Try again.")
+            continue
+
+        variable = input("Which variable: ")
+
+        if variable not in [m[0] for m in mapTypes]:
+            print("Invalid variable.")
+            continue
+
+        if variable == "hrsmain":
+            entries = [e for e in entries if e.getProp("eempstat") == "Employed"]
+
+        title += f": {variable} (n={len(entries)})"
+
+        graph_type = input("What type of graph (help for all types): ")
+
+        if graph_type == "help":
+            print("Supported types: histogram")
+            continue
+        elif graph_type == "histogram":
+            data = getNumericHistogramVariable(entries, variable)
+
+            plt.hist(data, bins=25, color="royalblue")
+            plt.title(title)
+            plt.ylabel("Count")
+            plt.xlabel(f"{variable.capitalize()}")
+            plt.show()
+        else:
+            print("Invalid graph type.")
+
+def graphAge():
+    ethnicities = ["Romanian", "Armenian", "Ukranian"]
+    religions = ["Jewish", ""]
+
+########################################
+
 # All lines from the data file
 lines = []
 entries_in_bucharest = []
 entries_by_pernum = defaultdict(dict)
 
-for m in mapTypes:
-    loadMap(m[0])
+maps = DataLoader.loadMaps(mapTypes)
 
 if os.path.exists("bucharest_entries.dat"):
     print("Data has been processed, loading .dat")
@@ -437,7 +524,7 @@ else:
     print(f"Data length: {len(lines)}")
 
     # Create an entry for each data line
-    all_people = [createEntry(line) for line in lines]
+    all_people = [Entry.createEntry(line, mapTypes, maps) for line in lines]
 
     print("Created data set. Pulling all in Bucharest...")
 
@@ -452,80 +539,18 @@ print(f"Entries in bucharest: {len(entries_in_bucharest)}")
 for person in entries_in_bucharest:
     entries_by_pernum[person.getProp("pernum")] = person
 
-# while True:
-#     var_name = input("Variable name (? for all): ")
+while True:
+    mode = input("What would you like to do? Type `help` for all modes: ")
 
-#     if var_name == "?":
-#         for m in mapTypes:
-#             print(m[0])
-#         continue
-
-#     if var_name not in [m[0] for m in mapTypes]:
-#         print("Invalid variable name.")
-#         continue
-
-#     val = input("Value (? for possible values): ")
-
-#     if val == "?":
-#         m = maps[var_name]
-#         for k in m:
-#             print(m[k])
-#         continue
-    
-#     if val not in maps[var_name].values() and not val == "all":
-#         print("Invalid value.")
-#         continue
-
-#     if val == "all":
-#         print(f"All % for {var_name}:")
-#         for v in maps[var_name].values():
-#             print(v)
-#             matching_entries = [p for p in filter(lambda p: p.hasProps({var_name: v}), entries_in_bucharest)]
-
-#             print(f"\tTotal count: {len(matching_entries)}")
-#             print(f"\tTotal percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
-#     else:
-#         matching_entries = [p for p in filter(lambda p: p.hasProps({var_name: val}), entries_in_bucharest)]
-
-#         print(f"Total count: {len(matching_entries)}")
-#         print(f"Total percent: {len(matching_entries)/len(entries_in_bucharest)*100:.3f}%")
-
-with open("indicators.csv", "w") as f:
-    print(maps["religion"])
-
-    cols = ["", "Count", "Ratio elderly", "Ratio female", "Ratio children", "Ratio widows in female population", "Average wage earners per household", 
-     "Minimum level of education", "Ratio of women with 3 children and more to women", "Ratio of unemployed", "Ratio of low income", "Ratio of high income women",
-     "Ratio of high income men", "Room occupancy per household", "Average household room area", "Household population density", "Avg no. of private/owned households w/ 5 or more rooms",
-     "Average room area per person"]
-
-    f.write(",".join(cols) + "\n")
-
-    # For each religion, get their indicators and write to file
-    for _,r in maps["religion"].items():
-        entries = list(filter(lambda p: p.getProp("religion") == r, entries_in_bucharest))
-
-        if len(entries) > 0:
-            indicators = getIndicators(entries, entries_in_bucharest)
-            indicator_str = ",".join(str(i) for i in indicators)
-            indicator_str = r + "," + str(len(entries)) + "," + indicator_str + "\n"
-
-            f.write(indicator_str)
-            print(f"Got indicators for {r}")
-        else:
-            print(f"Skipped {r} due to no entries")
-
-    # For each ethnicity, get their indicators and write to file
-    for _,e in maps["ro2011a_ethnic"].items():
-        entries = list(filter(lambda p: p.getProp("ro2011a_ethnic") == e, entries_in_bucharest))
-
-        if len(entries) > 0:
-            indicators = getIndicators(entries, entries_in_bucharest)
-            indicator_str = ",".join(str(i) for i in indicators)
-            indicator_str = e + "," + str(len(entries)) + "," + indicator_str + "\n"
-
-            f.write(indicator_str)
-            print(f"Got indicators for {e}")
-        else:
-            print(f"Skipped {e} due to no entries")
-
-print("Wrote to indicators.csv, go see if it worked!")
+    if mode == "help":
+        print("Different modes: help, analyze, graph, interactive")
+    elif mode == "analyze":
+        analyze()
+    elif mode == "graph":
+        graph(entries_in_bucharest)
+    elif mode == "interactive":
+        interactive()
+    elif mode == "test":
+        Visualizer.ageDistribution(entries_in_bucharest, ["Romanian", "Jewish", "Armenian", "Ukrainian"])
+    else:
+        print("Try again.")

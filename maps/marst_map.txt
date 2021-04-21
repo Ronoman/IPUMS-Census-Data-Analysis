@@ -1,0 +1,6 @@
+0		NIU (not in universe)
+1		Single/never married
+2		Married/in union
+3		Separated/divorced/spouse absent
+4		Widowed
+9		Unknown/missing
