@@ -1,7 +1,0 @@
-0		Biological mother or no mother present
-1		Mother has no children born or surviving
-2		Child reports mother is deceased
-3		Explicitly identified step relationship
-4		Mother reports no children in the home
-5		Age difference implausible
-6		Child exceeds known fertility of mother

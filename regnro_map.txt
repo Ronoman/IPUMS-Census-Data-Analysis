@@ -1,8 +1,0 @@
-1		North-East
-2		South-East
-3		South
-4		South-West
-5		West
-6		North-West
-7		Center
-8		Bucharest
