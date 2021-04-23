@@ -1,6 +1,6 @@
 10		Romanian
 11		Hungarian
-12		Gypsy
+12		Roma
 13		German
 14		Ukrainian
 15		Serbian
@@ -26,7 +26,7 @@
 40		Macedonian
 41		Csango
 45		Ruthenian
-50		Other ethnic group from European Union
-60		Other ethnic group from Europe
-70		Other ethnic group from other continents
-98		Unknown
+50		Other ethnic group
+60		Other ethnic group
+70		Other ethnic group
+98		Unknown ethnicity

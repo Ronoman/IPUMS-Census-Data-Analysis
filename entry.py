@@ -48,14 +48,16 @@ class Entry:
 
 		entry = Entry(props)
 
-		# Get salary by indgen (reduce to salary/wk from salary/mo)
-		salary = int(maps["income"][entry.getProp("indgen")]) / 4.34524
+		# Get salary by indgen (reduce to salary/hr from salary/mo)
+		# ASSUMPTION: 40 hrs/wk
+		salary_mo = int(maps["income"][entry.getProp("indgen")])
+		salary_hr = salary_mo / 4.3424 / 40
 
 		# Get hours by hrsmain
 		hours = int(entry.getProp("hrsmain"))
 
-		# Multiply together, convert hrs/wk to hrs/yr (*52), set to entry["income"]
-		entry.props["income"] = salary * hours * 52
+		# Multiply together, convert hrs/wk to hrs/yr (* ~52), set to entry["income"]
+		entry.props["income"] = salary_hr * hours * 52.149
 
 		return entry
 

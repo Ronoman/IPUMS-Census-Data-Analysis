@@ -5,5 +5,5 @@
 4		Jewish
 5		Muslim
 6		Christian
-7		Other
-9		Unknown
+7		Other religion
+9		Unknown religion

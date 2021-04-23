@@ -1,10 +1,11 @@
-import pickle, os
+import pickle, os, math
 from collections import defaultdict
 
 # Local libraries, used so that this file isn't a million lines long
 from loader import DataLoader
 from entry import Entry
 from visualize import Visualizer
+from indicators import Indicators
 
 # Completely arbitrary, will be decided based on real info soon
 LOW_SALARY = 20000
@@ -76,202 +77,7 @@ def calculateDistribution(entries, variable):
 # BASE VARIABLES FOR ARMAS CALCULATION #
 ########################################
 
-# Helper fn: Returns all unique household entries.
-def getUniqueHouseholds(entries):
-    serials = set()
-    households = []
-    
-    for e in entries:
-        if e.getProp("serial") not in serials:
-            serials.add(e.getProp("serial"))
-            households.append(e)
-
-    return households
-
-# Return number of unique SERIAL values
-def countHouseholds(entries):
-    # This is supposedly best practice, but is probably ridiculously slow
-    households = getUniqueHouseholds(entries)
-    return len(households)
-
-# Return count of entries with age < 18
-def countChildren(entries):
-    children = list(filter(lambda p: int(p.getProp("age")) < 18, entries))
-
-    return len(children)
-
-# Return count of women
-def countWomen(entries):
-    women = list(filter(lambda p: p.hasProps({"sex": "Female"}), entries))
-
-    return len(women)
-
-# Return count of men
-def countMen(entries):
-    men = list(filter(lambda p: p.hasProps({"sex": "Male"}), entries_in_bucharest))
-
-    return len(men)
-
-# Return count of women with 3 or more children
-def countWomenWith3Children(entries):
-    womenWithManyChildren = list(filter(lambda p: int(p.getProp("chborn")) > 2, entries))
-
-    return len(womenWithManyChildren)
-
-# Count the number of women who were 15 or older when they had a child
-# ASSUMPTION: If any child was had before 15, they are disqualified (not part of the total)
-def countWomen15OlderWithChild(all, entries):
-    total_mothers = 0
-
-    # Dict where entries are keyed by their pernum
-    pernums = defaultdict(dict)
-
-    # Women keyed by pernum. If value is true, they were >=15 when they had a child. If false, they were <15
-    women = defaultdict(dict)
-
-    for p in entries:
-        pernums[p.getProp("pernum")] = p
-
-    # Find all with MOMLOC
-    with_mothers = filter(lambda p: not int(p.getProp("momloc")) == 0, all)
-
-    # Lookup the mother of each child
-    for p in with_mothers:
-        num = p.getProp("momloc")
-        child_age = int(p.getProp("age"))
-
-        # If that mother is in this ethnic/religious group (in pernums from entries, not all)
-        if num in pernums:
-            # Calculate the mother's age
-            mom_age = int(pernums[num].getProp("age"))
-
-            age_at_birth = mom_age - child_age
-
-            # If the difference in ages is at least 15 years, then this mother counts
-            if(age_at_birth >= 15):
-                women[num] = True
-            else:
-                # Otherwise, explicitly exclude. This is to catch mothers who had a single child when they were under 15
-                women[num] = False
-
-    # Return the length of the list of women who were set to True after all processing
-    return len([m for m in women.items() if m])
-
-
-    # Subtract child age from mom age, if 15+, add to list
-    # return len(list)
-    pass
-
-# Count the number of entries with education of Literacy Courses or Primary
-# ASSUMPTION: Minimum education is up through primary, but does not include anything else
-def countWithMinimumEducation(entries):
-    minEducation = list(filter(lambda p: p.getProp("educro") in ["Primary", "Literacy Courses"], entries))
-    
-    return len(minEducation)
-
-# Count the number of entries who are over 10 years old
-def countAgeOver10(entries):
-    overTen = list(filter(lambda p: int(p.getProp("age")) > 10, entries))
-
-    return len(overTen)
-
-# Count the total size of buildings in square meters
-def countTotalLivingArea(entries):
-    # Initialize living area to 0
-    totalLivingArea = 0
-
-    # Get each unique household
-    households = getUniqueHouseholds(entries)
-
-    # Iterate over the dictionary with s(eries) and e(ntry)
-    for e in households:
-        # Add this household's living area to the total
-        totalLivingArea += int(e.getProp("ro2011a_livarea"))
-
-    return totalLivingArea
-
-# Count the number of unemployed individuals
-# ASSUMPTION: If not eempstat == Employed, they are not employed
-#             (NIU, Unemployed, not economically active are all not employed)
-def countUnemployed(entries):
-    unemployed = list(filter(lambda p: not p.getProp("eempstat") == "Employed", entries))
-
-    return len(unemployed)
-
-# Count the total number of rooms across households
-def countRooms(entries):
-    rooms = 0
-
-    # Get each unique household
-    households = getUniqueHouseholds(entries)
-
-    for e in households:
-        rooms += int(e.getProp("rooms"))
-
-    return rooms
-
-# Count the number of privately owned households
-def countPrivateHomes(entries):
-    households = getUniqueHouseholds(entries)
-
-    private = list(filter(lambda h: h.getProp("ownership") == "Owned", households))
-
-    return len(private)
-
-# Count the number of privately owned households with 5+ rooms
-def countPrivateWith5Rooms(entries):
-    households = getUniqueHouseholds(entries)
-
-    large_households = list(filter(lambda h: h.getProp("ownership") == "Owned" and int(h.getProp("rooms")) > 4, entries))
-
-    return len(large_households)
-
-# Count the number of economically active individuals
-# ASSUMPTION: Employed in EEMPSTAT is the only qualifier
-#             This matches with how the unemployed and economically active variables are used in the Armas report
-def countEconomicallyActive(entries):
-    return len(list(filter(lambda e: e.getProp("eempstat") == "Employed", entries)))
-
-# Count the number of socially dependand individuals
-# ASSUMPTION: Anyone younger than 12 or older than 80 are socially dependant. We could not find any discrete definitions
-#             of how this value should be calculated, from either the Armas report or independent research. This is
-#             as close to arbitrary as you can get.
-def countSociallyDependant(entries):
-    young = list(filter(lambda e: int(e.getProp("age")) < 12, entries))
-    old   = list(filter(lambda e: int(e.getProp("age")) > 80, entries))
-
-    return len(young) + len(old)
-
-# Count the number of individuals over 65 years old
-def countElderly(entries):
-    return len(list(filter(lambda e: int(e.getProp("age")) > 65, entries)))
-
-# Count the number of high income earners
-def countHighIncomeMen(entries):
-    high = list(filter(lambda p: int(p.getProp("income")) > HIGH_SALARY and p.getProp("sex") == "Male", entries))
-
-    return len(high)
-
-def countHighIncomeWomen(entries):
-    high = list(filter(lambda p: int(p.getProp("income")) > HIGH_SALARY and p.getProp("sex") == "Female", entries))
-
-    return len(high)
-
-# Count the number of low income earners
-def countLowIncome(entries):
-    low = list(filter(lambda p: int(p.getProp("income")) < LOW_SALARY, entries))
-
-    return len(low)
-
-# Count the number of widows
-def countWidows(entries):
-    widows = list(filter(lambda p: p.getProp("marst") == "Widowed", entries))
-
-    return len(widows)
-
-variableMap = {
-    "households": getUniqueHouseholds,
-}
+# See indicators.py
 
 ########################################
 
@@ -294,59 +100,59 @@ def getIndicators(entries, all):
 
     ### SOCIAL ###
     # 0: Ratio elderly
-    indicators.append(countElderly(entries) / len(entries))
+    indicators.append(Indicators.countElderly(entries) / len(entries))
 
     # 1: Ratio female
-    indicators.append(countWomen(entries) / len(entries))
+    indicators.append(Indicators.countWomen(entries) / len(entries))
 
     # 2: Ratio children
-    indicators.append(countChildren(entries) / len(entries))
+    indicators.append(Indicators.countChildren(entries) / len(entries))
 
     # 3: Ratio widows in female population
-    indicators.append(countWidows(entries) / countWomen(entries))
+    indicators.append(Indicators.countWidows(entries) / Indicators.countWomen(entries))
 
     # Skipped housing density, since it is 1/avg room area per person from our calculations
 
     # 4: Average wage earners per household
-    indicators.append(countEconomicallyActive(entries) / countHouseholds(entries))
+    indicators.append(Indicators.countEconomicallyActive(entries) / Indicators.countHouseholds(entries))
 
     # 5: Minimum level of education
-    indicators.append(countWithMinimumEducation(entries) / len(entries))
+    indicators.append(Indicators.countWithMinimumEducation(entries) / len(entries))
 
     # 6: Ratio of women with 3 children and more to women
     # In some reports it is 3, others 5. Chose 3 here, but can be changed (pass in as parameter?)
-    indicators.append(countWomenWith3Children(entries) / countWomen(entries))
+    indicators.append(Indicators.countWomenWith3Children(entries) / Indicators.countWomen(entries))
     ##############
 
     ### ECONOMIC ###
     # 7: Ratio of unemployed
-    indicators.append(countUnemployed(entries) / len(entries))
+    indicators.append(Indicators.countUnemployed(entries) / len(entries))
 
     # 8: Ratio of low income
-    indicators.append(countLowIncome(entries) / len(entries))
+    indicators.append(Indicators.countLowIncome(entries) / len(entries))
 
     # 9: Ratio of high income women
-    indicators.append(countHighIncomeWomen(entries) / countWomen(entries))
+    indicators.append(Indicators.countHighIncomeWomen(entries) / Indicators.countWomen(entries))
 
     # 10: Ratio of high income men
-    indicators.append(countHighIncomeMen(entries) / countMen(entries))
+    indicators.append(Indicators.countHighIncomeMen(entries) / Indicators.countMen(entries))
     ################
 
     ### HOUSING ###
     # 11: Room occupancy per household
-    indicators.append(len(entries) / countRooms(entries))
+    indicators.append(len(entries) / Indicators.countRooms(entries))
 
     # 12: Average household room area
-    indicators.append(countTotalLivingArea(entries) / countRooms(entries))
+    indicators.append(Indicators.countTotalLivingArea(entries) / Indicators.countRooms(entries))
 
     # 13: Household population density
-    indicators.append(len(entries) / countHouseholds(entries))
+    indicators.append(len(entries) / Indicators.countHouseholds(entries))
 
     # 14: Avg no. of private/owned households w/ 5 or more rooms
-    indicators.append(countPrivateWith5Rooms(entries) / countPrivateHomes(entries))
+    indicators.append(Indicators.countPrivateWith5Rooms(entries) / Indicators.countPrivateHomes(entries))
 
     # 15: Average room area per person
-    indicators.append(countTotalLivingArea(entries) / len(entries))
+    indicators.append(Indicators.countTotalLivingArea(entries) / len(entries))
     ###############
 
     return indicators
@@ -509,6 +315,7 @@ def graphAge():
 # All lines from the data file
 lines = []
 entries_in_bucharest = []
+all_people = []
 entries_by_pernum = defaultdict(dict)
 
 maps = DataLoader.loadMaps(mapTypes)
@@ -543,14 +350,36 @@ while True:
     mode = input("What would you like to do? Type `help` for all modes: ")
 
     if mode == "help":
-        print("Different modes: help, analyze, graph, interactive")
+        print("Different modes: help, analyze, graph, age, interactive")
     elif mode == "analyze":
         analyze()
     elif mode == "graph":
         graph(entries_in_bucharest)
     elif mode == "interactive":
         interactive()
-    elif mode == "test":
-        Visualizer.ageDistribution(entries_in_bucharest, ["Romanian", "Jewish", "Armenian", "Ukrainian"])
+    elif mode == "age":
+        Visualizer.ageDistribution(entries_in_bucharest, ["Romanian", "Jewish", "Armenian", "Roma", "Muslim"])
+    elif mode == "unemployment":
+        Visualizer.unemploymentChart(entries_in_bucharest, maps, 5)
+    elif mode == "income":
+        Visualizer.incomeDistribution(entries_in_bucharest)
+    elif mode == "education":
+        Visualizer.educationDistribution(entries_in_bucharest, ["Roma", "Unknown ethnicity", "Aromanian", "Muslim", "Romanian"])
+    elif mode == "density":
+        Visualizer.densityChart(entries_in_bucharest, maps, 5)
+    elif mode == "median":
+        print("Calculating income median across the country.")
+
+        print("Extracting incomes")
+        incomes = [int(p.getProp("income")) for p in all_people if int(p.getProp("income")) > 0]
+
+        print("Sorting")
+        incomes.sort()
+
+        print(f"Median income: {incomes[math.floor(len(incomes)/2)]}")
+    elif mode == "ethnicity":
+        Visualizer.popChart(entries_in_bucharest, maps)
+    elif mode == "religion":
+        Visualizer.popChart(entries_in_bucharest, maps, category="religion")
     else:
         print("Try again.")
